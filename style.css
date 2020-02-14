@@ -1,0 +1,6 @@
+.navbar-brand-center {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+    line-height: @navbar-height;
+}
