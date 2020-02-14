@@ -21,7 +21,7 @@
 
     <div class="container">
         <div class="row mt-3">
-            <div class="col-md-4 bg-light leftPanel">
+            <div class="col-md-3 bg-light leftPanel">
                 <div class="row searchArea">
                     <div class="col-md-12">
                         <h5>Search for a City:</h5>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row pastResultsArea">
                     <div class="col-md-12">
-                        <div class="card mt-3" style="width: 18rem;">
+                        <div class="card mt-3" style="width: 14rem;">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"></li>
                                 <li class="list-group-item"></li>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 rightPanel">
+            <div class="col-md-8 rightPanel ml-4">
                 <div class="row currentConditions">
                     <div class="col-md-12 border">
                         CURRENT CONDITIONS
@@ -72,12 +72,8 @@
         </div>
     </div>
 
-
-    <script>
-        $(document).ready(function () {
-            $('select').formSelect();
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script src="script.js"></script>
 </body>
