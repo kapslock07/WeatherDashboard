@@ -1,23 +1,54 @@
-$(".btn").on("click", function newSearch() {
+var setSearchHistory = ["Orlndo"];
+
+
+
+var getSearchHistory = localStorage.getItem("locations");
+// console.log(getSearchHistory);
+var getSearchHistory2 = JSON.parse(getSearchHistory);
+// console.log(getSearchHistory2);
+var mostRecentSearch = getSearchHistory2[getSearchHistory2.length - 1];
+// console.log(mostRecentSearch);
+getItem();
+
+for (var i = 0; i < getSearchHistory2.length; i++) {
+    var pastSearchListItem = $("<li>");
+    pastSearchListItem.addClass("list-group-item");
+    pastSearchListItem.text(getSearchHistory2[i]);
+    $(".list-group").prepend(pastSearchListItem);
+};
+
+
+$(".btn").on("click", function () {
+    var newSearch = $(".form-control").val().trim();
+    // console.log(newSearch);
+    setSearchHistory.push(newSearch);
+    localStorage.setItem("locations", JSON.stringify(setSearchHistory));
+    getSearchHistory = localStorage.getItem("locations");
+    getSearchHistory2 = JSON.parse(getSearchHistory);
+    console.log(setSearchHistory);
+    // console.log(mostRecentSearch);
+
+    getItem();
+
+});
+
+
+
+function getItem() {
     $(".currentConditions").empty();
     $(".futureDayCard").empty();
 
-    var locationName = $(".form-control").val().trim();
-    var pastSearchListItem = $("<li>");
-    pastSearchListItem.addClass("list-group-item");
-    pastSearchListItem.text(locationName);
-    $(".list-group").prepend(pastSearchListItem);
+    var newSearchHistory = localStorage.getItem("locations");
+    mostRecentSearch = getSearchHistory2[getSearchHistory2.length - 1];
 
-
-    console.log(locationName);
     // This is our API key
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
     // Here we are building the URL we need to query the database
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-        "q=" + locationName + "&units=imperial&appid=" + APIKey;
+        "q=" + mostRecentSearch + "&units=imperial&appid=" + APIKey;
 
-
+    // console.log(mostRecentSearch);
     // Here we run our AJAX call to the OpenWeatherMap API
     $.ajax({
         url: queryURL,
@@ -50,8 +81,6 @@ $(".btn").on("click", function newSearch() {
             var currentWindSpeed = Math.round((response.wind.speed) * 10) / 10;
             var longitute = response.coord.lon;
             var latitude = response.coord.lat;
-            // console.log(longitute);
-            // console.log(latitude);
             currentCityHeaderDiv.append(currentCityName);
             currentCityHeaderDiv.append(currentDate);
             currentWeatherIconImgDiv.attr("src", currentWeatherIconImgSrc);
@@ -97,9 +126,9 @@ $(".btn").on("click", function newSearch() {
 
                 .then(function (response) {
                     for (var i = 0; i < 5; i++) {
-                        console.log(response);
+                        // console.log(response);
                         var futureDate = moment().add(i + 1, 'days').format("M/DD/YYYY");
-                        console.log(futureDate);
+                        // console.log(futureDate);
 
                         var futureWeatherDiv = $("<div>");
                         var futureDateDiv = $("<h6>");
@@ -130,7 +159,7 @@ $(".btn").on("click", function newSearch() {
                 });
         });
 
-});
+};
 
 
 
