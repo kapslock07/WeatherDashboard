@@ -4,7 +4,7 @@ var getSearchHistory = localStorage.getItem("locations");
 getSearchHistory = JSON.parse(getSearchHistory);
 // console.log(getSearchHistory);
 
-if(getSearchHistory === null) {
+if (getSearchHistory === null) {
     getSearchHistory = [];
 }
 
@@ -37,7 +37,7 @@ $(".btn").on("click", function () {
 
 });
 
-$(document).on("click", ".pastCity", function(){
+$(document).on("click", ".pastCity", function () {
     getItem($(this).text())
 })
 
@@ -83,7 +83,7 @@ function getItem(mostRecentSearch) {
             var currentDate = moment().format(" (M/DD/YYYY)");
             var currentWeatherIconImgDiv = $("<img>");
             var currentWeatherIconImgCode = response.weather[0].icon
-            var currentWeatherIconImgSrc = "http://openweathermap.org/img/wn/" + currentWeatherIconImgCode + "@2x.png";
+            var currentWeatherIconImgSrc = "https://openweathermap.org/img/wn/" + currentWeatherIconImgCode + "@2x.png";
             var currentTemp = Math.round((response.main.temp) * 10) / 10;
             var currentHumidity = response.main.humidity;
             var currentWindSpeed = Math.round((response.wind.speed) * 10) / 10;
@@ -104,7 +104,7 @@ function getItem(mostRecentSearch) {
 
             $(".currentConditions").append(currentWeatherDiv);
 
-            var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + latitude + "&lon=" + longitute;
+            var queryURL2 = "https://api.openweathermap.org/data/2.5/uvi?appid=" + APIKey + "&lat=" + latitude + "&lon=" + longitute;
 
             $.ajax({
                 url: queryURL2,
@@ -124,7 +124,7 @@ function getItem(mostRecentSearch) {
                 });
             $(".currentConditions").append(currentWeatherDiv);
 
-            var queryURL3 = "http://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + "&lat=" + latitude + "&lon=" + longitute + "&units=imperial";
+            var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + "&lat=" + latitude + "&lon=" + longitute + "&units=imperial";
 
 
             $.ajax({
@@ -142,7 +142,7 @@ function getItem(mostRecentSearch) {
                         var futureDateDiv = $("<h6>");
                         var futureWeatherIconImgDiv = $("<img>");
                         var futureWeatherIconImgCode = response.list[i + 1].weather[0].icon;
-                        var futureWeatherIconImgSrc = "http://openweathermap.org/img/wn/" + futureWeatherIconImgCode + ".png";
+                        var futureWeatherIconImgSrc = "https://openweathermap.org/img/wn/" + futureWeatherIconImgCode + ".png";
                         var futureTempDiv = $("<p>");
                         var futureTemp = Math.round((response.list[i + 1].main.temp) * 10) / 10;
                         var futureHumidityDiv = $("<p>");
