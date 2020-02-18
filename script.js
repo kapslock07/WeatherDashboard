@@ -1,19 +1,21 @@
-var setSearchHistory = ["Orlndo"];
-
-
 
 var getSearchHistory = localStorage.getItem("locations");
 // console.log(getSearchHistory);
-var getSearchHistory2 = JSON.parse(getSearchHistory);
-// console.log(getSearchHistory2);
-var mostRecentSearch = getSearchHistory2[getSearchHistory2.length - 1];
-// console.log(mostRecentSearch);
-getItem();
+getSearchHistory = JSON.parse(getSearchHistory);
+// console.log(getSearchHistory);
 
-for (var i = 0; i < getSearchHistory2.length; i++) {
+if(getSearchHistory === null) {
+    getSearchHistory = [];
+}
+
+var mostRecentSearch = getSearchHistory[getSearchHistory.length - 1];
+// console.log(mostRecentSearch);
+getItem(getSearchHistory[getSearchHistory.length - 1]);
+
+for (var i = 0; i < getSearchHistory.length; i++) {
     var pastSearchListItem = $("<li>");
-    pastSearchListItem.addClass("list-group-item");
-    pastSearchListItem.text(getSearchHistory2[i]);
+    pastSearchListItem.addClass("list-group-item pastCity");
+    pastSearchListItem.text(getSearchHistory[i]);
     $(".list-group").prepend(pastSearchListItem);
 };
 
@@ -21,25 +23,31 @@ for (var i = 0; i < getSearchHistory2.length; i++) {
 $(".btn").on("click", function () {
     var newSearch = $(".form-control").val().trim();
     // console.log(newSearch);
-    setSearchHistory.push(newSearch);
-    localStorage.setItem("locations", JSON.stringify(setSearchHistory));
-    getSearchHistory = localStorage.getItem("locations");
-    getSearchHistory2 = JSON.parse(getSearchHistory);
-    console.log(setSearchHistory);
+    getSearchHistory.push(newSearch);
+    localStorage.setItem("locations", JSON.stringify(getSearchHistory));
+
+    var pastSearchListItem = $("<li>");
+    pastSearchListItem.addClass("list-group-item pastCity");
+    pastSearchListItem.text(newSearch);
+    $(".list-group").prepend(pastSearchListItem);
     // console.log(mostRecentSearch);
 
-    getItem();
+    // mostRecentSearch = getSearchHistory[getSearchHistory.length - 1];
+    getItem(getSearchHistory[getSearchHistory.length - 1]);
 
 });
 
+$(document).on("click", ".pastCity", function(){
+    getItem($(this).text())
+})
 
 
-function getItem() {
+function getItem(mostRecentSearch) {
     $(".currentConditions").empty();
     $(".futureDayCard").empty();
 
-    var newSearchHistory = localStorage.getItem("locations");
-    mostRecentSearch = getSearchHistory2[getSearchHistory2.length - 1];
+    //var newSearchHistory = localStorage.getItem("locations");
+    // mostRecentSearch = getSearchHistory[getSearchHistory.length - 1];
 
     // This is our API key
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
