@@ -1,15 +1,12 @@
 
 var getSearchHistory = localStorage.getItem("locations");
-// console.log(getSearchHistory);
 getSearchHistory = JSON.parse(getSearchHistory);
-// console.log(getSearchHistory);
 
 if (getSearchHistory === null) {
     getSearchHistory = [];
 }
 
 var mostRecentSearch = getSearchHistory[getSearchHistory.length - 1];
-// console.log(mostRecentSearch);
 getItem(getSearchHistory[getSearchHistory.length - 1]);
 
 for (var i = 0; i < getSearchHistory.length; i++) {
@@ -22,7 +19,6 @@ for (var i = 0; i < getSearchHistory.length; i++) {
 
 $(".btn").on("click", function () {
     var newSearch = $(".form-control").val().trim();
-    // console.log(newSearch);
     getSearchHistory.push(newSearch);
     localStorage.setItem("locations", JSON.stringify(getSearchHistory));
 
@@ -30,9 +26,7 @@ $(".btn").on("click", function () {
     pastSearchListItem.addClass("list-group-item pastCity");
     pastSearchListItem.text(newSearch);
     $(".list-group").prepend(pastSearchListItem);
-    // console.log(mostRecentSearch);
 
-    // mostRecentSearch = getSearchHistory[getSearchHistory.length - 1];
     getItem(getSearchHistory[getSearchHistory.length - 1]);
 
 });
@@ -46,8 +40,6 @@ function getItem(mostRecentSearch) {
     $(".currentConditions").empty();
     $(".futureDayCard").empty();
 
-    //var newSearchHistory = localStorage.getItem("locations");
-    // mostRecentSearch = getSearchHistory[getSearchHistory.length - 1];
 
     // This is our API key
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
@@ -56,7 +48,6 @@ function getItem(mostRecentSearch) {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
         "q=" + mostRecentSearch + "&units=imperial&appid=" + APIKey;
 
-    // console.log(mostRecentSearch);
     // Here we run our AJAX call to the OpenWeatherMap API
     $.ajax({
         url: queryURL,
@@ -65,14 +56,6 @@ function getItem(mostRecentSearch) {
         // We store all of the retrieved data inside of an object called "response"
         .then(function (response) {
 
-            // Log the queryURL
-            // console.log(queryURL);
-
-            // Log the resulting object
-            // console.log(response);
-            // console.log(response.name);
-            // console.log(moment().format("M/DD/YYYY"));
-            // console.log(response.weather[0].icon);
 
             var currentWeatherDiv = $("<div>");
             var currentCityHeaderDiv = $("<h4>");
@@ -134,9 +117,7 @@ function getItem(mostRecentSearch) {
 
                 .then(function (response) {
                     for (var i = 0; i < 5; i++) {
-                        // console.log(response);
                         var futureDate = moment().add(i + 1, 'days').format("M/DD/YYYY");
-                        // console.log(futureDate);
 
                         var futureWeatherDiv = $("<div>");
                         var futureDateDiv = $("<h6>");
